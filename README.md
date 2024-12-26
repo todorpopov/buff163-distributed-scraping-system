@@ -18,9 +18,9 @@ A distributed, single-tenant, microservices application, designed to run on-prem
 Shipped as a monorepo, both for convenience, as well as to avoid cluttering my GitHub repos.
 
 Building this suite of services is aimed at teaching me more about:
-    - The Golang programming language and best practices when using it
-    - Microservices, distributed systems and systems design
-    - gRPC and Protocol Buffers
-    - RabbitMQ and message queues
-    - Angular and frontend in general.
-    - Orchestration using Kubernetes and Helm
+ - The Golang programming language and best practices when using it
+ - Microservices, distributed systems and systems design
+ - gRPC and Protocol Buffers
+ - RabbitMQ and message queues
+ - Angular and frontend in general.
+ - Orchestration using Kubernetes and Helm
