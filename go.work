@@ -1,0 +1,11 @@
+go 1.23.1
+
+use (
+	./common
+	./gateway
+	./master
+	./item-scraper
+	./sticker-scraper
+	./ui
+	./logging
+)
