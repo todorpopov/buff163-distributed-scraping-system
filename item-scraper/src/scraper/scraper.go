@@ -10,6 +10,7 @@ import (
 
 	"github.com/todorpopov/bdss-common/logger"
 	"github.com/todorpopov/bdss-common/queue"
+	"github.com/todorpopov/bdss-common/shared"
 
 	"github.com/todorpopov/bdss-item-scraper/src/schema"
 	"github.com/todorpopov/bdss-item-scraper/src/utils"
@@ -19,12 +20,18 @@ type Scraper struct {
 	shouldScrape bool
 	timeout      int
 	itemCodes    []string
-	qg           queue.QueueGateway
-	logger       logger.Logger
+	qg           *queue.QueueGateway
+	logger       *logger.Logger
 }
 
-func NewScraper(qg queue.QueueGateway, logger logger.Logger) *Scraper {
+func NewScraper(qg *queue.QueueGateway, logger *logger.Logger) *Scraper {
 	itemCodes := utils.ParseItemCodesFile()
+
+	err := qg.QueueDeclare("items") // Items queue declare
+	if err != nil {
+		shared.FailOnError(err, "Could not declare items queue!")
+	}
+
 	return &Scraper{true, 1, itemCodes, qg, logger}
 }
 
@@ -86,7 +93,7 @@ func (s *Scraper) publishToQueue(serializedDtos []string) {
 func (s *Scraper) StartScraping() {
 	s.shouldScrape = true
 
-	for i := 0; i < len(s.itemCodes); i++ {
+	for i := 0; i < 50; i++ { //len(s.itemCodes); i++ {
 		if !s.shouldScrape {
 			break
 		}
@@ -95,7 +102,7 @@ func (s *Scraper) StartScraping() {
 		serializedDtos := s.serializeDtos(*dtos)
 		s.publishToQueue(*serializedDtos)
 
-		time.Sleep(5 * time.Second)
+		time.Sleep(time.Duration(s.timeout) * time.Second)
 	}
 }
 
