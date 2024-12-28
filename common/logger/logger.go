@@ -1,20 +1,24 @@
 package logger
 
-import "time"
+import (
+	"fmt"
+	"time"
 
-type LogMessage struct {
-	Service  string
-	Datetime time.Time
-	Type     string
-	Message  string
+	"github.com/todorpopov/bdss-common/queue"
+)
+
+type Logger struct {
+	service string
+	queue   queue.QueueGateway
 }
 
-type LoggerConfig struct {
-	Url     string
-	Port    string
-	Service string
+func NewLogger(service string, queue queue.QueueGateway) *Logger {
+	return &Logger{service, queue}
 }
 
-type LoggerClient struct {
-	Config LoggerConfig
+func (log *Logger) Info(msg string) error {
+	time := time.Now()
+
+	message := fmt.Sprintf("[%s][%s][INFO] %s", time, log.service, msg)
+	return log.queue.Publish("logging", message)
 }

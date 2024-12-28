@@ -33,7 +33,7 @@ type ResponseJson struct {
 	Data Data `json:"data"`
 }
 
-func (r ResponseJson) ToItemDto() *[]ItemDTO {
+func (r ResponseJson) ToItemDtos() *[]ItemDTO {
 	var itemDtos []ItemDTO
 
 	for i := 0; i < len(r.Data.Items); i++ {

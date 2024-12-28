@@ -1,5 +1,9 @@
 package schema
 
+import (
+	"encoding/json"
+)
+
 type StickerDTO struct {
 	Name string
 	Slot int
@@ -17,4 +21,13 @@ type ItemDTO struct {
 	PaintSeed            int
 	Stickers             []StickerDTO
 	OfferUrl             string
+}
+
+func (dto *ItemDTO) Serialize() string {
+	json, err := json.Marshal(dto)
+	if err != nil {
+		return ""
+	}
+
+	return string(json)
 }

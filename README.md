@@ -22,5 +22,5 @@ Building this suite of services is aimed at teaching me more about:
  - Microservices, distributed systems and systems design
  - gRPC and Protocol Buffers
  - RabbitMQ and message queues
- - Angular and frontend in general.
+ - Angular and frontend in general
  - Orchestration using Kubernetes and Helm

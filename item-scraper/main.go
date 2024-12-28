@@ -1,18 +1,22 @@
 package main
 
 import (
-	// "github.com/todorpopov/bdss-item-scraper/scraper"
-	// "github.com/todorpopov/bdss-item-scraper/service"
-	"github.com/todorpopov/bdss-item-scraper/system"
+	"github.com/todorpopov/bdss-common/queue"
+	"github.com/todorpopov/bdss-common/utils"
 )
 
 func main() {
-	// scraper := scraper.NewScraper()
+	queueGateway, err := queue.NewQueueGateway("amqp://guest:guest@localhost:5672/")
+	if err != nil {
+		utils.FailOnError(err, "An error occured when connectiong to RabbitMQ")
+	}
 
-	// service := service.NewService(*scraper)
+	err = queueGateway.QueueDeclare("logging") // Logging Queue declare
+	if err != nil {
+		utils.FailOnError(err, "Could not declare queue!")
+	}
 
-	// service.StartScraper()
+	// logger := logger.NewLogger("ITEM-SCRAPER", *queueGateway)
 
-	fileHandler := system.NewFileHandler("item-scraper/system/item-codes.txt")
-	fileHandler.ParseFile()
+	// scraper := scraper.NewScraper(*logger)
 }
