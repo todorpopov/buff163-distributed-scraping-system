@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/todorpopov/bdss-common/utils"
 )
 
 func GetItemsApi(itemCode string) string {
@@ -16,9 +18,9 @@ func GetItemOfferUrl(userId string, itemName string) string {
 }
 
 func ParseItemCodesFile() []string {
-	data, err := os.ReadFile("./item-codes.txt")
+	data, err := os.ReadFile("./item-scraper/item-codes.txt")
 	if err != nil {
-		fmt.Printf("Error occured: %s", err)
+		utils.FailOnError(err, "Could not parse the item codes file!")
 	}
 
 	return strings.Split(string(data), "|")

@@ -6,8 +6,8 @@ import (
 
 type StickerDTO struct {
 	Name string
-	Slot int
-	Wear int
+	Slot float64
+	Wear float64
 }
 
 type ItemDTO struct {
@@ -17,8 +17,8 @@ type ItemDTO struct {
 	AssetId              string
 	HasTradeableCooldown bool
 	Id                   string
-	PaintIndex           int
-	PaintSeed            int
+	PaintIndex           float64
+	PaintSeed            float64
 	Stickers             []StickerDTO
 	OfferUrl             string
 }

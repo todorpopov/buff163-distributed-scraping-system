@@ -1,14 +1,14 @@
 package schema
 
 type Sticker struct {
-	Name string `json:"name"`
-	Slot int    `json:"slot"`
-	Wear int    `json:"wear"`
+	Name string  `json:"name"`
+	Slot float64 `json:"slot"`
+	Wear float64 `json:"wear"`
 }
 
 type Info struct {
-	PaintIndex int       `json:"paintindex"`
-	PaintSeed  int       `json:"paintseed"`
+	PaintIndex float64   `json:"paintindex"`
+	PaintSeed  float64   `json:"paintseed"`
 	Stickers   []Sticker `json:"stickers"`
 }
 

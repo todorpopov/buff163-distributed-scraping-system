@@ -1,8 +1,11 @@
 package main
 
 import (
+	"github.com/todorpopov/bdss-common/logger"
 	"github.com/todorpopov/bdss-common/queue"
 	"github.com/todorpopov/bdss-common/utils"
+	"github.com/todorpopov/bdss-item-scraper/src/scraper"
+	"github.com/todorpopov/bdss-item-scraper/src/service"
 )
 
 func main() {
@@ -11,12 +14,23 @@ func main() {
 		utils.FailOnError(err, "An error occured when connectiong to RabbitMQ")
 	}
 
-	err = queueGateway.QueueDeclare("logging") // Logging Queue declare
+	err = queueGateway.QueueDeclare("logging") // Logging queue declare
 	if err != nil {
-		utils.FailOnError(err, "Could not declare queue!")
+		utils.FailOnError(err, "Could not declare logging queue!")
 	}
 
-	// logger := logger.NewLogger("ITEM-SCRAPER", *queueGateway)
+	err = queueGateway.QueueDeclare("items") // Items queue declare
+	if err != nil {
+		utils.FailOnError(err, "Could not declare items queue!")
+	}
 
-	// scraper := scraper.NewScraper(*logger)
+	logger := logger.NewLogger("ITEM-SCRAPER", *queueGateway)
+
+	scraper := scraper.NewScraper(*queueGateway, *logger)
+
+	service := service.NewService(*scraper)
+
+	service.StartScraping()
+
+	queueGateway.Close()
 }
