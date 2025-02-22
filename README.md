@@ -1,4 +1,4 @@
-# My obsession with scraping the Buf163 marketplace
+# My obsession with scraping the Buff163 marketplace
 
 Creating a scraper for the Buff163 online CS:GO marketplace was the task I had at hand at my first internship as a Software Engineer.
 
